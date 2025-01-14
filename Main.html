@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Página</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffcccc, #ffe6e6);
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #ff6666;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 1rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffcccc;
+        }
+
+        .slideshow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .slides {
+            display: none;
+            width: 800px; 
+            height: 600px; 
+            object-fit: cover; 1
+            margin: auto; 
+        }
+
+
+        .active {
+            display: block;
+        }
+
+        .dot-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #ff6666;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #ffcccc;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="Recuerdos.html" target="_blank">Recuerdos nuestros</a>
+        <a href="PLanes.html " target="_blank">Planes para hacer</a>
+        <a href="ComoNosConocimos.html" target="_blank">Nuestra historia</a>
+    </div>
+
+    <div class="slideshow-container">
+        <img src="./Fotos/1.JPG" alt="Foto 1" class="slides active">
+        <img src="./Fotos/2.JPG" alt="Foto 2" class="slides">
+        <img src="./Fotos/3.JPG" alt="Foto 3" class="slides">
+        <img src="./Fotos/4.JPG" alt="Foto 4" class="slides">
+        <img src="./Fotos/5.JPG" alt="Foto 5" class="slides">
+        <img src="./Fotos/6.JPG" alt="Foto 6" class="slides">
+
+        <div class="dot-container">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slides');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+                dots[i].classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            slideIndex = (slideIndex + 1) % slides.length;
+            showSlide(slideIndex);
+        }
+
+        setInterval(nextSlide, 3000); // Cambia cada 3 segundos
+    </script>
+</body>
+</html>
