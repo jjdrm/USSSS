@@ -11,6 +11,22 @@
             background: linear-gradient(to bottom, #ffcccc, #ffe6e6);
             color: #333;
         }
+        
+        .slides:nth-child(6),
+        .slides:nth-child(7),
+        .slides:nth-child(8),
+        .slides:nth-child(9) {
+        max-height: 600px;  
+        width: auto; 
+        object-fit: contain;  
+        }
+
+        .h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ff6666;
+            font-size: 24px;
+        }
 
         .navbar {
             display: flex;
@@ -36,7 +52,7 @@
 
         .slideshow-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             overflow: hidden;
             position: relative;
@@ -46,11 +62,11 @@
 
         .slides {
             display: none;
-            width: 800px; 
-            height: 600px; 
-            object-fit: cover; 1
-            margin: auto; 
-        }
+            width: 800px;  
+            height: 600px;  
+            object-fit: cover;  /* Ensures images fit without distortion */
+            margin: auto;
+}
 
 
         .active {
@@ -58,8 +74,9 @@
         }
 
         .dot-container {
-            text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .dot {
@@ -76,13 +93,32 @@
             background-color: #ffcccc;
         }
 
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <a href="Recuerdos.html" target="_blank">Recuerdos nuestros</a>
-        <a href="PLanes.html " target="_blank">Planes para hacer</a>
         <a href="ComoNosConocimos.html" target="_blank">Nuestra historia</a>
+        <a href="Citas.html" target="_blank">Citas que quiero contigo</a>
+        <a href="Metas.html" target="_blank">Metas que tengo contigo</a>
+        <a href="Sitios especiales.html" target="_blank">Sitios especiales (En Construccion)</a>
+    </div>
+
+    <div class="h1">
+        <h1>Nuestras Fotos favoritos</h1>
     </div>
 
     <div class="slideshow-container">
@@ -92,34 +128,64 @@
         <img src="./Fotos/4.JPG" alt="Foto 4" class="slides">
         <img src="./Fotos/5.JPG" alt="Foto 5" class="slides">
         <img src="./Fotos/6.JPG" alt="Foto 6" class="slides">
+        <img src="./Fotos/7.JPG" alt="Foto 7" class="slides"> 
+        <img src="./Fotos/8.JPG" alt="Foto 8" class="slides"> 
+        <img src="./Fotos/9.JPG" alt="Foto 9" class="slides"> 
+        <img src="./Fotos/10.JPG" alt="Foto 10" class="slides">
+        <img src="./Fotos/11.jpg" alt="Foto 11" class="slides">
 
-        <div class="dot-container">
+    <div class="dot-container">
             <span class="dot active"></span>
             <span class="dot"></span>
             <span class="dot"></span>
             <span class="dot"></span>
             <span class="dot"></span>
             <span class="dot"></span>
-        </div>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        
+    </div>
+        <div class="gallery"></div>
+    </div>
 
     <script>
         let slideIndex = 0;
-        const slides = document.querySelectorAll('.slides');
-        const dots = document.querySelectorAll('.dot');
+        const slides = document.querySelectorAll(".slides");
+        const dots = document.querySelectorAll(".dot");
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-                dots[i].classList.toggle('active', i === index);
-            });
+        function showSlides(n) {
+            // Reset all slides and dots
+            slides.forEach(slide => slide.style.display = "none");
+            dots.forEach(dot => dot.classList.remove("active"));
+
+            // Ensure index wraps around
+            slideIndex = (n + slides.length) % slides.length;
+
+            // Show the active slide and highlight its dot
+            slides[slideIndex].style.display = "block";
+            dots[slideIndex].classList.add("active");
         }
 
         function nextSlide() {
-            slideIndex = (slideIndex + 1) % slides.length;
-            showSlide(slideIndex);
+            showSlides(slideIndex + 1);
         }
 
-        setInterval(nextSlide, 3000); // Cambia cada 3 segundos
+        function startSlideshow() {
+            nextSlide();
+            setTimeout(startSlideshow, 3000); // Change slide every 3s
+        }
+
+        // Dot click event
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+                showSlides(index);
+            });
+        });
+
+        // Start the slideshow
+        showSlides(slideIndex);
+        setTimeout(startSlideshow, 3000);
     </script>
-</body>
-</html>
